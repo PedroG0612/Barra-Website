@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TITANBAR PRO — High-Load Doorway Pull-Up Bar</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- GSAP Core & ScrollTrigger for high-precision animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+  <!-- =========================================================================
+       PERSISTENT ADAPTIVE TOP NAVIGATION
+       ========================================================================= -->
+  <header class="site-nav glass-nav" id="site-nav">
+    <div class="nav-left">
+      <a href="#hero" class="brand-logo">
+        <svg class="brand-icon" viewBox="0 0 24 24">
+          <polygon points="12,2 22,8.5 22,15.5 12,22 2,15.5 2,8.5" fill="none" stroke="currentColor" stroke-width="2.2" />
+          <circle cx="12" cy="12" r="3.5" fill="currentColor" />
+        </svg>
+        <span>TITANBAR PRO</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link active">About</a></li>
+        <li><a href="#deep-dive" class="nav-link">Features</a></li>
+        <li><a href="#studio" class="nav-link">Specs</a></li>
+        <li><a href="#shop" class="nav-link">Shop</a></li>
+      </ul>
+
+      <button class="menu-toggle-btn" id="menu-toggle" aria-label="Toggle navigation menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="17" x2="20" y2="17" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="nav-right">
+      <button class="nav-action-btn sound-toggle-btn" id="sound-btn" title="Toggle Mechanical Audio FX">
+        <svg id="sound-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+        </svg>
+      </button>
+
+      <button class="nav-action-btn" id="fav-btn">
+        <span>Favorite</span>
+        <span class="badge-count" id="fav-badge">0</span>
+      </button>
+
+      <button class="nav-action-btn" id="cart-btn">
+        <span>Cart</span>
+        <span class="badge-count" id="cart-badge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       FLOATING SECTION PROGRESS / PAGINATION
+       ========================================================================= -->
+  <nav class="floating-progress-nav" id="progress-nav" aria-label="Section navigation">
+    <div class="nav-dot active" data-target="#hero"><span class="nav-dot-tooltip">Hero View</span></div>
+    <div class="nav-dot" data-target="#deep-dive"><span class="nav-dot-tooltip">Engineering</span></div>
+    <div class="nav-dot" data-target="#studio"><span class="nav-dot-tooltip">Feature Studio</span></div>
+    <div class="nav-dot" data-target="#shop"><span class="nav-dot-tooltip">Order & Specs</span></div>
+  </nav>
+
+  <!-- =========================================================================
+       SCENE 0: ISOMETRIC 3-SCREEN PERSPECTIVE PRESENTATION (Frames 01-03)
+       ========================================================================= -->
+  <div class="iso-intro-overlay" id="iso-overlay">
+    <div class="iso-screens-stage" id="iso-stage">
+      
+      <!-- Card 1: Initialization Preview -->
+      <div class="iso-card iso-card-1" id="iso-card-init">
+        <div class="iso-preview-content">
+          <div class="iso-header">
+            <span>TITANBAR PRO</span>
+            <span>( system initialization )</span>
+          </div>
+          <div class="iso-center-graphic">
+            <svg class="iso-starburst-icon" viewBox="0 0 100 100">
+              <path d="M50 5 C53 25, 47 25, 50 45 C47 47, 47 53, 50 55 C53 75, 47 75, 50 95 C30 92, 30 98, 10 75 C25 60, 25 66, 5 50 C25 34, 25 40, 10 25 C30 2, 30 8, 50 5 Z" fill="#141d26" />
+            </svg>
+            <span style="font-family: var(--font-mono); font-size: 13px; font-weight: bold;">( 45% )</span>
+          </div>
+          <div style="font-size: 11px; color: #64748b; text-align: center;">Calibrating tension balance...</div>
+        </div>
+      </div>
+
+      <!-- Card 2: Hero Preview -->
+      <div class="iso-card iso-card-2" id="iso-card-hero">
+        <div class="iso-preview-content">
+          <div class="iso-header">
+            <span style="color: #e51d24;">✦ TITANBAR</span>
+            <span>Cart [0]</span>
+          </div>
+          <div style="display: flex; justify-content: center; align-items: center; height: 160px;">
+            <img src="assets/titanbar-transparent.png" alt="TitanBar Preview" class="iso-product-img" />
+          </div>
+          <div class="iso-headline" style="color: #fff; font-size: 18px;">Because you demand absolute stability.</div>
+        </div>
+      </div>
+
+      <!-- Card 3: Shop Preview -->
+      <div class="iso-card iso-card-3" id="iso-card-shop">
+        <div class="iso-preview-content">
+          <div class="iso-header">
+            <span>TITANBAR STORE</span>
+            <span style="color: #e51d24;">$79 USD</span>
+          </div>
+          <div style="display: flex; gap: 14px; align-items: center;">
+            <div style="width: 70px; height: 70px; background: #e2e8f0; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+              <span style="font-size: 22px;">⬡</span>
+            </div>
+            <div>
+              <div style="font-weight: 700; font-size: 15px;">TitanBar Pro 100cm</div>
+              <div style="font-size: 12px; color: #64748b;">Aircraft-Grade Steel Alloy</div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #cbd5e1; padding-top: 10px;">
+            <span style="font-family: var(--font-mono); font-size: 12px;">300kg Load Tested</span>
+            <span style="background: #0f172a; color: #fff; font-size: 11px; padding: 4px 10px; border-radius: 4px;">Checkout</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Controls to start sequence -->
+    <div class="iso-controls">
+      <button class="enter-exp-btn" id="start-btn">
+        <span>Experience TitanBar Launch</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
+      <div class="enter-hint">CLICK ANYWHERE OR PRESS SPACE TO LAUNCH</div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       SCENE 1: SYSTEM INITIALIZATION / PRELOADER (Frames 04-05)
+       ========================================================================= -->
+  <div class="scene-init" id="scene-init">
+    <div class="init-top">
+      <h1 class="init-brand-title">TITANBAR PRO</h1>
+      <div class="init-subtitle">( system initialization )</div>
+    </div>
+
+    <div class="init-center-stage">
+      <div class="starburst-mask-container" id="starburst-trigger">
+        <!-- 8-pointed organic gear/starburst shape matching reference video -->
+        <svg class="starburst-shape" viewBox="0 0 200 200">
+          <path d="M100,10 C108,40 125,40 148,22 C162,42 152,58 178,58 C185,82 170,95 190,100 C170,105 185,118 178,142 C152,142 162,158 148,178 C125,160 108,160 100,190 C92,160 75,160 52,178 C38,158 48,142 22,142 C15,118 30,105 10,100 C30,95 15,82 22,58 C48,58 38,42 52,22 C75,40 92,40 100,10 Z" />
+        </svg>
+        <div class="init-counter-text" id="init-pct-text">( 0% )</div>
+      </div>
+    </div>
+
+    <div class="init-bottom">
+      <p class="init-desc">Preparing your high-performance training protocol and calibrating integrated level sensors.</p>
+      <div class="init-progress-bar">
+        <div class="init-progress-fill" id="init-progress-fill"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Starburst Reveal Mask Layer (Frame 06) -->
+  <div class="starburst-reveal-layer" id="reveal-layer">
+    <svg class="starburst-expand-shape" id="reveal-shape" viewBox="0 0 200 200">
+      <path d="M100,10 C108,40 125,40 148,22 C162,42 152,58 178,58 C185,82 170,95 190,100 C170,105 185,118 178,142 C152,142 162,158 148,178 C125,160 108,160 100,190 C92,160 75,160 52,178 C38,158 48,142 22,142 C15,118 30,105 10,100 C30,95 15,82 22,58 C48,58 38,42 52,22 C75,40 92,40 100,10 Z" />
+    </svg>
+  </div>
+
+  <!-- =========================================================================
+       MAIN CONTENT CONTAINER
+       ========================================================================= -->
+  <main class="experience-container" id="main-content">
+
+    <!-- =======================================================================
+         SCENE 2: CINEMATIC HERO SHOWCASE (Frames 07-11)
+         ======================================================================= -->
+    <section class="hero-viewport" id="hero">
+      <canvas class="particles-canvas" id="particles-canvas"></canvas>
+      <div class="hero-ambient-glow"></div>
+
+      <div class="hero-center-stage">
+        
+        <!-- Big blurred-to-sharp cinematic editorial typography -->
+        <div class="hero-title-container">
+          <h2 class="hero-main-title blurred-entrance" id="hero-title">
+            Because you demand absolute stability.
+          </h2>
+        </div>
+
+        <!-- 3D TitanBar Product Stage -->
+        <div class="titanbar-3d-wrapper" id="bar-stage">
+          <!-- Main authentic product image (New High-Resolution Transparent Asset) -->
+          <img src="assets/titanbar-transparent.png" alt="TITANBAR Pro Doorway Bar" class="product-hero-layer" id="hero-bar-img" />
+
+          <!-- Interactive Hotspot 1: Hexagonal Anti-Slip Support Pad -->
+          <div class="bar-hotspot hotspot-pad" id="hotspot-pad">
+            <div class="hotspot-tooltip">Base Hexagonal: Dispersão 300kg sem perfurar</div>
+          </div>
+
+          <!-- Interactive Hotspot 2: Dual Safety Lock Collar (Left) -->
+          <div class="bar-hotspot hotspot-lock" id="hotspot-lock">
+            <div class="hotspot-tooltip">Trava de Segurança: Sistema Anti-Rotação</div>
+          </div>
+
+          <!-- Interactive Hotspot 3: Center Core & Telescopic Mechanism -->
+          <div class="bar-hotspot hotspot-center" id="hotspot-center">
+            <div class="hotspot-tooltip">Núcleo Telescópico: Ajuste de 65 a 100cm</div>
+          </div>
+
+          <!-- Interactive Hotspot 4: Dual Safety Lock Collar (Right) -->
+          <div class="bar-hotspot hotspot-lock-right" id="hotspot-lock-right">
+            <div class="hotspot-tooltip">Anel Dentado de Bloqueio 360°</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Floating Bottom Dock (Frames 07-11) -->
+      <footer class="hero-bottom-dock">
+        <div class="dock-left-info">
+          The heavy-duty doorway pull-up bar engineered with dual hexagonal silicone distribution and continuous spirit leveling.
+        </div>
+
+        <div class="dock-center-pill">
+          <span class="dock-pill-tag">Cold-Rolled Alloy Steel ®</span>
+          <div class="dock-dots">
+            <span class="dock-dot active"></span>
+            <span class="dock-dot"></span>
+            <span class="dock-dot"></span>
+          </div>
+          <span class="dock-pill-tag" style="color: #22c55e;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="12" r="10" />
+            </svg>
+            LEVEL READY
+          </span>
+        </div>
+
+        <div class="dock-right-cta">
+          <button class="hero-order-btn" id="hero-order-cta">
+            <span>Order now</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
+      </footer>
+    </section>
+
+    <!-- =======================================================================
+         SCENE 3: DEEP DIVE / TECHNICAL BREAKDOWN (Frames 12-17)
+         ======================================================================= -->
+    <section class="section-deep-dive" id="deep-dive">
+      <div class="deep-dive-grid">
+        
+        <div class="deep-dive-left">
+          <div class="feature-pill-tags">
+            <span class="feature-pill">Nível Integrado</span>
+            <span class="feature-pill">Trava de Segurança</span>
+            <span class="feature-pill">Ajuste 65-100cm</span>
+            <span class="feature-pill">Carga 300kg+</span>
+          </div>
+
+          <h2 class="deep-dive-headline">
+            TitanBar reinforces your home workouts with integrated spirit levels, multi-angle locking clamps, and heavy-duty hexagonal anti-slip distribution.
+          </h2>
+
+          <div class="callout-card-container">
+            <div class="callout-card">
+              <div class="callout-header">
+                <span>HexPressure™ Technology</span>
+                <span class="callout-header-divider">—</span>
+                <span style="color: #22c55e;">Zero Wall Damage</span>
+              </div>
+              <p class="callout-body">
+                High-density hexagonal silicone contact pads diffuse lateral friction across six triangular force vectors. Fastens securely into any doorway without screws, anchors, or damage.
+              </p>
+              <div class="callout-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                <span>Instant tool-free setup • 300kg certified capacity</span>
+              </div>
+              <p class="callout-subtext">
+                The bi-directional micro-threading locks tighter as downwards gravitational pull increases, ensuring zero slippage during explosive movements.
+              </p>
+            </div>
+
+            <!-- Visual connector line targeting the bar -->
+            <div class="callout-pointer-line">
+              <div class="callout-pointer-dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="deep-dive-right">
+          <div class="deep-dive-spotlight"></div>
+          <div class="deep-dive-product-showcase">
+            <img src="assets/titanbar-transparent.png" alt="TitanBar Detail" class="deep-dive-img" id="deep-dive-bar-img" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         SCENE 4: LIGHT STUDIO & FEATURE TIMELINE INSPECTOR (Frames 18-25)
+         ======================================================================= -->
+    <section class="section-studio" id="studio">
+      
+      <div class="studio-header">
+        <div class="studio-title-group">
+          <h2 class="studio-main-title">
+            <span>Features</span>
+            <span class="studio-title-dim">(specs)</span>
+            <span class="studio-code-step" id="studio-active-code">(00.03)</span>
+          </h2>
+          <p class="studio-subtitle" id="studio-subtitle">
+            Gives you real-time structural tension, zero wall deformation, and micro-lock telemetry.
+          </p>
+        </div>
+        <div class="studio-total-code">(00.08)</div>
+      </div>
+
+      <!-- Framed Viewport Center Stage -->
+      <div class="studio-center-stage">
+        
+        <!-- Left Feature Description Card -->
+        <div class="studio-left-card">
+          <div class="studio-black-card" id="studio-black-card">
+            <div class="black-card-title" id="black-card-title">Ajuste Telescópico Milimétrico</div>
+            <div class="black-card-body" id="black-card-body">
+              A barra interna com rosca de alta precisão permite regulagem contínua de 65cm a 100cm, adaptando-se com perfeição milimétrica a qualquer batente de porta residencial ou comercial.
+            </div>
+            <div class="black-card-icons">
+              <span title="Precisão">⚙ 65–100 cm</span>
+              <span title="Fixação">🔒 Trava 360°</span>
+              <span title="Nível">⚖ Nível Ativo</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Center Interactive Calibration HUD (Frames 22 & 24) -->
+        <div class="studio-product-preview-area">
+          <img src="assets/image.png" alt="TitanBar Background" class="studio-bar-bg-img" />
+
+          <!-- Interactive Calibration Card -->
+          <div class="calibration-card" id="calibration-card">
+            <div class="cal-header">
+              <span>LATEST CALIBRATION</span>
+              <span>2026 EDITION</span>
+              <span style="font-weight: bold; color: var(--brand-red);">● ACTIVE</span>
+            </div>
+
+            <div class="cal-grid-stats">
+              <div>
+                <div class="cal-stat-label">CURRENT EXTENSION</div>
+                <div class="cal-stat-value" id="cal-val-length">78 <span style="font-size: 16px; font-weight: normal;">cm</span></div>
+              </div>
+              <div>
+                <div class="cal-stat-label">LOAD CAPACITY</div>
+                <div class="cal-stat-value" id="cal-val-load">320 <span style="font-size: 16px; font-weight: normal;">kg</span></div>
+              </div>
+            </div>
+
+            <!-- Interactive Spirit Level Simulation -->
+            <div>
+              <div class="cal-stat-label" style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span>HORIZONTAL BALANCE</span>
+                <span id="level-angle-readout" style="color: #22c55e; font-weight: bold;">0.0° LEVEL</span>
+              </div>
+              <div class="spirit-level-hud" id="spirit-level-hud">
+                <div class="spirit-vial-glass"></div>
+                <div class="spirit-vial-marks"></div>
+                <div class="spirit-bubble" id="spirit-bubble" style="left: calc(50% - 11px);"></div>
+              </div>
+            </div>
+
+            <!-- Action buttons (Frame 24 style) -->
+            <div class="cal-actions-row">
+              <button class="cal-btn cal-btn-outline" id="cal-btn-reset">Reset</button>
+              <button class="cal-btn cal-btn-primary" id="cal-btn-shorten">- 5 cm</button>
+              <button class="cal-btn cal-btn-red" id="cal-btn-extend">+ 5 cm</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Bottom Timeline Cards Carousel (Frames 20 & 26) -->
+      <div class="studio-timeline-container">
+        <div class="studio-timeline-row" id="timeline-row">
+          
+          <div class="timeline-card" data-idx="1" data-code="(00.01)" data-title="Trava de Segurança" data-desc="Sistema de anéis dentados de travamento anti-giro. Uma vez ajustada, a barra não afrouxa sob peso." data-load="300 kg">
+            <div class="timeline-card-code">( 00.01 )</div>
+            <div class="timeline-card-title">Trava de Segurança</div>
+          </div>
+
+          <div class="timeline-card" data-idx="2" data-code="(00.02)" data-title="Nível Integrado" data-desc="Bolha de nível esférica integrada ao corpo da barra garante instalação 100% reta, evitando desequilíbrio muscular." data-load="310 kg">
+            <div class="timeline-card-code">( 00.02 )</div>
+            <div class="timeline-card-title">Nível Integrado</div>
+          </div>
+
+          <div class="timeline-card active" data-idx="3" data-code="(00.03)" data-title="Ajuste 65-100cm" data-desc="Extensão telescópica precisa que se adapta a batentes de 65cm até 100cm com rosca helicoidal de alta pressão." data-load="320 kg">
+            <div class="timeline-card-code">( 00.03 )</div>
+            <div class="timeline-card-title">Ajuste Telescópico</div>
+          </div>
+
+          <div class="timeline-card" data-idx="4" data-code="(00.04)" data-title="Manopla Ergonômica" data-desc="Espuma antiderrapante de alta densidade com absorção de suor, proporcionando pegada anatômica sem calos." data-load="320 kg">
+            <div class="timeline-card-code">( 00.04 )</div>
+            <div class="timeline-card-title">Grip Anatômico</div>
+          </div>
+
+          <div class="timeline-card" data-idx="5" data-code="(00.05)" data-title="Base Hexagonal" data-desc="Almofadas de silicone hexagonal aumentam a área de contato em 300% com distribuição triangular de peso." data-load="350 kg">
+            <div class="timeline-card-code">( 00.05 )</div>
+            <div class="timeline-card-title">Base Hexagonal</div>
+          </div>
+
+          <div class="timeline-card" data-idx="6" data-code="(00.06)" data-title="Aço Reforçado" data-desc="Tubo estrutural em aço carbono laminado a frio com parede espessa de 3mm resistente a flexões extremas." data-load="350 kg">
+            <div class="timeline-card-code">( 00.06 )</div>
+            <div class="timeline-card-title">Aço Reforçado</div>
+          </div>
+
+          <div class="timeline-card" data-idx="7" data-code="(00.07)" data-title="Carga de 300kg" data-desc="Capacidade de sustentação testada para mais de 300kg estáticos, segura para calistenia e pesos extras." data-load="350 kg">
+            <div class="timeline-card-code">( 00.07 )</div>
+            <div class="timeline-card-title">Carga Máxima</div>
+          </div>
+
+          <div class="timeline-card" data-idx="8" data-code="(00.08)" data-title="Sem Furos" data-desc="Instalação 100% por pressão e atrito. Não necessita de parafusos, furadeiras ou perfurações no batente." data-load="300 kg">
+            <div class="timeline-card-code">( 00.08 )</div>
+            <div class="timeline-card-title">Instalação Limpa</div>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- =======================================================================
+         SCENE 5: SHOP & E-COMMERCE DETAIL (Frames 28-30)
+         ======================================================================= -->
+    <section class="section-shop" id="shop">
+      <div class="shop-container">
+        
+        <!-- Left Showcase Gallery with Focus Switching (Frames 28 & 30) -->
+        <div class="shop-visual-gallery">
+          <div class="shop-thumbnail-strip">
+            <div class="shop-thumb-item active" data-view="full" title="Visão Completa">
+              <img src="assets/image.png" alt="Barra Completa" class="shop-thumb-img" />
+            </div>
+            <div class="shop-thumb-item" data-view="level" title="Detalhe do Nível">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="8" y1="12" x2="16" y2="12" />
+                <circle cx="12" cy="12" r="2" fill="#22c55e" />
+              </svg>
+            </div>
+            <div class="shop-thumb-item" data-view="lock" title="Trava de Segurança">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#e51d24" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+              </svg>
+            </div>
+            <div class="shop-thumb-item" data-view="mounted" title="Em Treino na Porta">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2">
+                <rect x="4" y="2" width="16" height="20" rx="1" />
+                <line x1="2" y1="6" x2="22" y2="6" stroke-width="3" />
+              </svg>
+            </div>
+          </div>
+
+          <div class="shop-main-viewport">
+            <img src="assets/image.png" alt="TitanBar Pro Official View" class="shop-main-img" id="shop-main-img" />
+            <div class="shop-zoom-badge" id="gallery-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                <line x1="11" y1="8" x2="11" y2="14" />
+                <line x1="8" y1="11" x2="14" y2="11" />
+              </svg>
+              <span>Click to inspect • 360° High Definition</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Product Configuration & Checkout -->
+        <div class="shop-product-info">
+          
+          <div class="shop-product-heading">
+            <span class="shop-meta-tag">( product info )</span>
+            <h1 class="shop-title">TitanBar Pro Smart Pull-Up Bar</h1>
+          </div>
+
+          <!-- Extension Length Selector -->
+          <div class="selector-group">
+            <div class="selector-label">
+              <span>TAMANHO DO BATENTE</span>
+              <span id="selected-length-label" style="font-weight: bold; color: #0f172a;">65 - 100 CM (Padrão)</span>
+            </div>
+            <div class="size-pill-options">
+              <button class="size-btn" data-length="65 - 85 CM">65 - 85 CM</button>
+              <button class="size-btn active" data-length="65 - 100 CM">65 - 100 CM</button>
+              <button class="size-btn" data-length="85 - 120 CM">85 - 120 CM</button>
+            </div>
+          </div>
+
+          <!-- Color Finishes Swatches -->
+          <div class="selector-group">
+            <div class="selector-label">
+              <span>ACABAMENTO EXCLUSIVO</span>
+              <span id="selected-color-label" style="font-weight: bold; color: #0f172a;">Vermelho Competição & Preto Fosco</span>
+            </div>
+            <div class="color-swatches-row">
+              <div class="color-swatch color-swatch-red active" data-color="Vermelho Competição & Preto Fosco" title="Red / Black"></div>
+              <div class="color-swatch color-swatch-black" data-color="Stealth Blackout Total" title="Stealth Black"></div>
+              <div class="color-swatch color-swatch-silver" data-color="Titanium Aço Escovado" title="Brushed Titanium"></div>
+            </div>
+          </div>
+
+          <p class="shop-desc">
+            Modelo profissional de barra de porta com duplo nível integrado, travas anti-afrouxamento de 360° e almofadas hexagonais antiderrapantes. Treine pull-ups, chin-ups e abdômen com 100% de estabilidade e zero furos.
+          </p>
+
+          <!-- Price & Checkout Button -->
+          <div class="shop-pricing-cta-row">
+            <div class="price-display">
+              <span class="current-price" id="price-val">R$ 249</span>
+              <span class="original-price">R$ 329</span>
+            </div>
+
+            <div class="cta-actions">
+              <button class="shop-checkout-btn" id="checkout-trigger-btn">
+                <span>Checkout</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+              <button class="shop-fav-btn" id="shop-fav-trigger" aria-label="Adicionar aos favoritos">
+                <span>♡</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Detailed Accordion Dropdowns -->
+          <div class="shop-accordions">
+            
+            <div class="accordion-item open">
+              <button class="accordion-header">
+                <span>Visão Geral do Produto</span>
+                <span class="accordion-arrow">↗</span>
+              </button>
+              <div class="accordion-body">
+                A TitanBar Pro foi desenvolvida para atletas que não abrem mão de segurança. O sistema de nível integrado permite checar o paralelismo antes de iniciar a série, prevenindo sobrecargas assimétricas nos ombros. As bases de silicone hexagonal protegem a pintura da sua porta.
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span>Especificações Técnicas</span>
+                <span class="accordion-arrow">↗</span>
+              </button>
+              <div class="accordion-body">
+                <table class="specs-table">
+                  <tbody>
+                    <tr><td>Material:</td><td>Aço Carbono Reforçado 3mm</td></tr>
+                    <tr><td>Capacidade Máxima:</td><td>350 kg estáticos (testado em laboratório)</td></tr>
+                    <tr><td>Comprimento:</td><td>Ajustável de 65cm a 100cm</td></tr>
+                    <tr><td>Diâmetro do Tubo:</td><td>32 mm com manoplas de EVA</td></tr>
+                    <tr><td>Sistema de Nível:</td><td>Bolha de precisão de duplo eixo</td></tr>
+                    <tr><td>Fixação:</td><td>Pressão e atrito por base hexagonal</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span>Entrega, Garantia & Devoluções</span>
+                <span class="accordion-arrow">↗</span>
+              </button>
+              <div class="accordion-body">
+                Envio imediato com rastreamento expresso para todo o Brasil. Garantia vitalícia contra defeitos na estrutura de aço e 30 dias de teste sem risco: se não amar a firmeza na sua porta, devolvemos 100% do seu dinheiro.
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       INTERACTIVE CHECKOUT MODAL
+       ========================================================================= -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Finalizar Pedido</h3>
+        <button class="modal-close-btn" id="modal-close">✕</button>
+      </div>
+
+      <div class="modal-order-summary">
+        <img src="assets/image.png" alt="TitanBar Pro" class="modal-thumb" />
+        <div>
+          <div class="modal-item-title">TitanBar Pro Doorway Bar</div>
+          <div class="modal-item-subtitle" id="modal-variant-text">65-100cm • Vermelho & Preto</div>
+          <div style="font-weight: 700; color: #e51d24; margin-top: 4px;">R$ 249,00</div>
+        </div>
+      </div>
+
+      <form class="modal-form" id="checkout-form" onsubmit="event.preventDefault();">
+        <input type="text" class="modal-input" placeholder="Seu Nome Completo" required value="Alexandre Silva" />
+        <input type="email" class="modal-input" placeholder="Seu E-mail" required value="alexandre@exemplo.com" />
+        <input type="text" class="modal-input" placeholder="Endereço de Entrega (CEP / Rua)" required value="Av. Paulista, 1000 - São Paulo, SP" />
+        
+        <button type="submit" class="modal-submit-btn" id="confirm-order-btn">
+          Confirmar Pedido com Frete Grátis
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
